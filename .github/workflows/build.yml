@@ -5,14 +5,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      - run: chmod +x gradlew
-      - run: ./gradlew assembleDebug
-      - uses: actions/upload-artifact@v4
+          cache: gradle
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug -PRELEASE_STORE_FILE=temp -PRELEASE_STORE_PASSWORD=temp -PRELEASE_KEY_ALIAS=temp -PRELEASE_KEY_PASSWORD=temp
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: StudyReader-APK
-          path: app/build/outputs/apk/debug/*.apk
+          path: "**/build/outputs/apk/debug/*.apk"
           
