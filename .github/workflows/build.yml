@@ -17,11 +17,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        # Hum sirf Librera version build karenge, Pro ko skip karenge
+        run: ./gradlew assembleLibreraDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Librera-Reader-APK
-          path: "**/build/outputs/apk/debug/*.apk"
+          path: "**/build/outputs/apk/librera/debug/*.apk" 
           
