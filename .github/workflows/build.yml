@@ -31,7 +31,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        # Yahan humne '-PD_AD_APP' add kiya hai jo pichle error ka pakka ilaaj hai
+        # Is baar saari properties gradle.properties se uthayega
         run: ./gradlew assembleLibreraDebug -PD_AD_APP=ca-app-pub-3940256099942544~3347511713
 
       - name: Upload APK
