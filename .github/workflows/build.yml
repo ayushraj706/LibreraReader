@@ -15,7 +15,6 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      # NAYA STEP: Ek nakli google-services.json file banana
       - name: Create Dummy Google Services JSON
         run: |
           echo '{
@@ -32,8 +31,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        # Humne gradle.properties mein sab set kar hi diya hai
-        run: ./gradlew assembleLibreraDebug
+        # Yahan humne '-PD_AD_APP' add kiya hai jo pichle error ka pakka ilaaj hai
+        run: ./gradlew assembleLibreraDebug -PD_AD_APP=ca-app-pub-3940256099942544~3347511713
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
