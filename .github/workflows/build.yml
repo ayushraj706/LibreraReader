@@ -20,7 +20,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Debug APK with All Dummy Keys
-        # Is baar humne AdMob IDs bhi add kar di hain
+        # Saari possible AdMob IDs yahan inject kar di hain
         run: |
           ./gradlew assembleDebug \
             -PRELEASE_STORE_FILE=temp \
@@ -31,7 +31,9 @@ jobs:
             -Plibrera_appGdriveSecret=dummy_secret \
             -Plibrera_admobAppId=ca-app-pub-3940256099942544~3347511713 \
             -Plibrera_admobBannerId=ca-app-pub-3940256099942544/6300978111 \
-            -Plibrera_admobInterstitialId=ca-app-pub-3940256099942544/1033173712
+            -Plibrera_admobInterstitialId=ca-app-pub-3940256099942544/1033173712 \
+            -Plibrera_admobFullId=ca-app-pub-3940256099942544/1033173712 \
+            -Plibrera_admobNativeId=ca-app-pub-3940256099942544/2247696110
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
