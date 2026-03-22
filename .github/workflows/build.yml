@@ -7,22 +7,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
+      # NAYA STEP: Ek nakli google-services.json file banana
+      - name: Create Dummy Google Services JSON
+        run: |
+          echo '{
+            "project_info": { "project_number": "123", "project_id": "dummy" },
+            "client": [ {
+              "client_info": { "mobilesdk_app_id": "1:123:android:abc", "android_client_info": { "package_name": "com.foobnix.pdf.reader" } },
+              "api_key": [ { "current_key": "dummy" } ],
+              "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+            } ],
+            "configuration_version": "1"
+          }' > app/google-services.json
+
       - name: Grant Permission
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        # Hum sirf Librera version build karenge, Pro ko skip karenge
+        # Humne gradle.properties mein sab set kar hi diya hai
         run: ./gradlew assembleLibreraDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Librera-Reader-APK
-          path: "**/build/outputs/apk/librera/debug/*.apk" 
+          path: "**/build/outputs/apk/librera/debug/*.apk"
           
