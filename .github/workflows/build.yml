@@ -1,6 +1,6 @@
 name: Build Study Reader
 on:
-  workflow_dispatch: # Manual build start karne ke liye
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,8 +19,8 @@ jobs:
       - name: Grant Execute Permission
         run: chmod +x gradlew
 
-      - name: Build Debug APK with Dummy Keys
-        # Yahan humne saari missing properties ko dummy values se bhar diya hai
+      - name: Build Debug APK with All Dummy Keys
+        # Is baar humne AdMob IDs bhi add kar di hain
         run: |
           ./gradlew assembleDebug \
             -PRELEASE_STORE_FILE=temp \
@@ -28,7 +28,10 @@ jobs:
             -PRELEASE_KEY_ALIAS=temp \
             -PRELEASE_KEY_PASSWORD=temp \
             -Plibrera_appGdriveKey=dummy_key \
-            -Plibrera_appGdriveSecret=dummy_secret
+            -Plibrera_appGdriveSecret=dummy_secret \
+            -Plibrera_admobAppId=ca-app-pub-3940256099942544~3347511713 \
+            -Plibrera_admobBannerId=ca-app-pub-3940256099942544/6300978111 \
+            -Plibrera_admobInterstitialId=ca-app-pub-3940256099942544/1033173712
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
